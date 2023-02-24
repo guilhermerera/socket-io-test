@@ -22,3 +22,10 @@ io.on("connection", (socket) => {
 });
 
 httpServer.listen(3000, console.log("Server Online running on port 3000"));
+
+import express from "express";
+const app = express();
+
+app.listen(3001, () => {
+	console.log("express server por 3001");
+});
