@@ -1,10 +1,14 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-import { createServer } from "http";
 import { Server } from "socket.io";
+import express from "express";
+const app = express();
 
-const httpServer = createServer();
-const io = new Server(httpServer, {
+const server = app.listen(3000, () => {
+	console.log("express server port 3000");
+});
+
+const io = new Server(server, {
 	cors: {
 		origin: process.env.URL,
 		methods: ["GET", "POST"]
@@ -19,13 +23,4 @@ io.on("connection", (socket) => {
 	socket.on("click", () => {
 		io.emit("click-response", { msg: Math.floor(Math.random() * 100) });
 	});
-});
-
-httpServer.listen(3000, console.log("Server Online running on port 3000"));
-
-import express from "express";
-const app = express();
-
-app.listen(3001, () => {
-	console.log("express server por 3001");
 });
